@@ -1,0 +1,131 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>windtab: WAsP .tab Viewer</title>
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600&display=swap" rel="stylesheet" />
+  </head>
+  <body>
+    <div id="drop-overlay">Drop .tab file to load</div>
+
+    <div id="app">
+      <!-- Top bar -->
+      <header id="topbar">
+        <img class="logo" src="/favicon.svg" alt="windtab" />
+        <span><strong>windtab</strong></span>
+        <span class="tagline">WAsP .tab viewer</span>
+        <span class="spacer"></span>
+        <a href="docs.html" class="nav-link">Docs</a>
+        <label class="load-btn">
+          Load file
+          <input type="file" id="file-input" accept=".tab" hidden />
+        </label>
+      </header>
+
+      <!-- Error banner (hidden by default) -->
+      <div id="error-banner" hidden></div>
+
+      <!-- Empty state -->
+      <section id="empty-state">
+        <h2>Drop a .tab file anywhere</h2>
+        <p>Visualise WAsP Observed Wind Climate files: wind rose, Weibull fits, heatmap. Everything runs in your browser.</p>
+        <button id="sample-btn">Try the example file</button>
+      </section>
+
+      <!-- Bento grid (hidden until file loaded) -->
+      <main id="bento-grid" hidden>
+
+        <!-- Wind rose tile -->
+        <div class="tile" id="tile-rose">
+          <div class="rose-header">
+            <span id="site-name"></span>
+            <label class="energy-toggle-wrap">
+              <label class="toggle-switch">
+                <input type="checkbox" id="energy-toggle" />
+                <span class="slider"></span>
+              </label>
+              Energy
+            </label>
+          </div>
+          <div id="rose-plot"></div>
+        </div>
+
+        <!-- Stat tiles -->
+        <div class="tile" id="tile-height">
+          <span class="tile-label">Height</span>
+          <span class="tile-value" id="stat-height">-</span>
+        </div>
+        <div class="tile" id="tile-sectors">
+          <span class="tile-label">Sectors</span>
+          <span class="tile-value" id="stat-sectors">-</span>
+        </div>
+        <div class="tile" id="tile-meanspeed">
+          <span class="tile-label">Mean speed</span>
+          <span class="tile-value" id="stat-meanspeed">-</span>
+        </div>
+        <div class="tile" id="tile-weibull">
+          <span class="tile-label">Weibull A / k</span>
+          <span class="tile-value" id="stat-weibull">-</span>
+        </div>
+
+        <!-- Sector detail tile -->
+        <div class="tile" id="tile-sector">
+          <div class="sector-header">
+            <span class="tile-label">Sector</span>
+            <select id="sector-select"></select>
+            <span id="sector-weibull-badge"></span>
+          </div>
+          <div id="sector-plot"></div>
+        </div>
+
+        <!-- Heatmap tile -->
+        <div class="tile" id="tile-heatmap">
+          <span class="tile-label">Frequency heatmap (joint probability %)</span>
+          <div id="heatmap-plot"></div>
+        </div>
+
+        <!-- Table tile -->
+        <div class="tile" id="tile-table">
+          <span class="tile-label">Sector statistics</span>
+          <div class="table-wrap">
+            <table>
+              <thead>
+                <tr>
+                  <th>#</th>
+                  <th>Dir (°)</th>
+                  <th>Freq (%)</th>
+                  <th>Mean (m/s)</th>
+                  <th>A</th>
+                  <th>k</th>
+                </tr>
+              </thead>
+              <tbody id="sector-table-body"></tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- Downloads tile -->
+        <div class="tile" id="tile-downloads">
+          <span class="tile-label">Export</span>
+          <span class="download-filename" id="download-filename"></span>
+          <div class="download-btns">
+            <button id="btn-csv" disabled>Download CSV</button>
+            <button id="btn-json" disabled>Download JSON</button>
+            <button id="btn-png" disabled>Download PNG</button>
+          </div>
+        </div>
+
+      </main>
+
+      <footer id="footer">
+        Need project support? Visit <a href="https://anemona.io" target="_blank" rel="noopener">anemona.io</a>
+      </footer>
+    </div>
+
+    <script type="module" src="/src/main.ts"></script>
+  </body>
+</html>

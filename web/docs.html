@@ -1,0 +1,255 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>windtab: Documentation</title>
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600&family=JetBrains+Mono:wght@400&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css" />
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"
+      onload="renderMathInElement(document.body, { delimiters: [{left:'$$',right:'$$',display:true},{left:'$',right:'$',display:false}] })"></script>
+    <style>
+      *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+      :root {
+        --bg:      #3d3d43;
+        --surface: #56565d;
+        --border:  #6e6e76;
+        --text:    #e5e7eb;
+        --muted:   #b0b0b6;
+        --accent:  #DD8D57;
+        --radius:  12px;
+      }
+
+      html, body {
+        background: var(--bg);
+        color: var(--text);
+        font-family: "Outfit", system-ui, sans-serif;
+        font-size: 15px;
+        line-height: 1.6;
+      }
+
+      #app {
+        display: flex;
+        flex-direction: column;
+        min-height: 100vh;
+        max-width: 780px;
+        margin: 0 auto;
+        padding: 12px;
+        gap: 12px;
+      }
+
+      /* top bar */
+      #topbar {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        padding: 0 4px;
+      }
+      .logo { width: 28px; height: 28px; flex-shrink: 0; }
+      .tagline { color: var(--muted); font-size: 0.8rem; }
+      .spacer { flex: 1; }
+      .nav-link {
+        color: var(--muted);
+        text-decoration: none;
+        font-size: 0.8rem;
+        padding: 5px 14px;
+        border: 1px solid var(--border);
+        border-radius: 6px;
+        transition: border-color 0.15s, color 0.15s;
+      }
+      .nav-link:hover { border-color: var(--accent); color: var(--accent); }
+
+      /* docs layout */
+      .docs {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        gap: 44px;
+        padding: 24px 0 40px;
+      }
+
+      section { display: flex; flex-direction: column; gap: 14px; }
+
+      h1 { font-size: 1.6rem; font-weight: 600; }
+      h1 .sub { font-size: 1rem; font-weight: 400; color: var(--muted); margin-left: 10px; }
+
+      h2 {
+        font-size: 0.72rem;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 0.1em;
+        color: var(--accent);
+      }
+
+      p { color: var(--muted); line-height: 1.75; }
+      p + p { margin-top: 8px; }
+      strong { color: var(--text); font-weight: 500; }
+
+      /* callout */
+      .callout {
+        background: rgba(221, 141, 87, 0.09);
+        border: 1px solid rgba(221, 141, 87, 0.35);
+        border-radius: var(--radius);
+        padding: 14px 18px;
+        color: var(--text);
+        line-height: 1.7;
+      }
+      .callout strong { color: var(--accent); }
+
+      /* file format block */
+      .file-format {
+        background: var(--surface);
+        border: 1px solid var(--border);
+        border-radius: var(--radius);
+        padding: 16px 20px;
+        font-family: "JetBrains Mono", "Consolas", "Menlo", monospace;
+        font-size: 0.8rem;
+        color: var(--text);
+        line-height: 2;
+      }
+      .file-format .cm { color: var(--muted); }
+
+      /* formula blocks */
+      .formula {
+        background: var(--surface);
+        border: 1px solid var(--border);
+        border-left: 3px solid var(--accent);
+        border-radius: var(--radius);
+        padding: 16px 20px;
+        overflow-x: auto;
+        color: var(--text);
+      }
+      .formula .lbl {
+        display: block;
+        font-size: 0.68rem;
+        text-transform: uppercase;
+        letter-spacing: 0.1em;
+        color: var(--muted);
+        margin-bottom: 8px;
+      }
+      .formula .katex-display { margin: 0; }
+
+      code {
+        background: var(--surface);
+        border: 1px solid var(--border);
+        padding: 1px 6px;
+        border-radius: 4px;
+        font-family: "JetBrains Mono", "Consolas", "Menlo", monospace;
+        font-size: 0.82rem;
+        color: var(--accent);
+      }
+
+      /* footer */
+      #footer {
+        text-align: center;
+        font-size: 0.75rem;
+        color: var(--muted);
+        padding: 16px 0;
+        border-top: 1px solid var(--border);
+      }
+      #footer a { color: var(--accent); text-decoration: none; }
+      #footer a:hover { text-decoration: underline; }
+    </style>
+  </head>
+  <body>
+    <div id="app">
+      <header id="topbar">
+        <img class="logo" src="/favicon.svg" alt="windtab" />
+        <span><strong>windtab</strong></span>
+        <span class="tagline">WAsP .tab viewer</span>
+        <span class="spacer"></span>
+        <a href="/" class="nav-link">← App</a>
+      </header>
+
+      <main class="docs">
+
+        <section>
+          <h1>Documentation <span class="sub">windtab</span></h1>
+          <p>windtab reads WAsP Observed Wind Climate files (<code>.tab</code>) and produces a wind rose, Weibull fits per sector, a joint probability heatmap, and a sector statistics table. The formulas behind each panel are below.</p>
+        </section>
+
+        <section>
+          <h2>Privacy &amp; data handling</h2>
+          <div class="callout">
+            <strong>Your files never leave your browser.</strong> windtab runs entirely client-side: no server, no upload, no analytics.
+          </div>
+          <p>When you load a <code>.tab</code> file, the browser reads it from disk using the File API and runs all parsing and calculation locally. Nothing reaches the network. Close the tab and the data is gone.</p>
+          <p>Coordinates, site names, and frequency tables stay on your machine. Safe for commercially sensitive wind resource data.</p>
+        </section>
+
+        <section>
+          <h2>File format</h2>
+          <p>WAsP Observed Wind Climate files are plain text:</p>
+          <div class="file-format">
+            <div><span class="cm">Line 1: </span> Site name</div>
+            <div><span class="cm">Line 2: </span> x_coord &nbsp; y_coord &nbsp; height_m</div>
+            <div><span class="cm">Line 3: </span> n_sectors &nbsp; speed_scale &nbsp; direction_offset</div>
+            <div><span class="cm">Line 4: </span> sector_frequencies... &nbsp;<span class="cm">(space-separated, %)</span></div>
+            <div><span class="cm">Line 5+:</span> speed_bin &nbsp; freq[0] &nbsp; freq[1] &nbsp; ... &nbsp; freq[n&minus;1] &nbsp;<span class="cm">(per-mille, within-sector conditional)</span></div>
+          </div>
+          <p><strong>speed_scale</strong> multiplies every speed bin value. <strong>direction_offset</strong> shifts all sector centre angles. Frequencies on line 5+ are conditional on wind direction: how often each speed class occurs given that sector, in parts per thousand. They need not sum to 1000 across sectors.</p>
+        </section>
+
+        <section>
+          <h2>Wind rose</h2>
+          <p>Each petal's length is the joint probability of that direction sector and speed class occurring together:</p>
+          <div class="formula">
+            <span class="lbl">Joint probability</span>
+            $$p(i,j) = \frac{f_{ij}}{1000} \times \frac{F_j}{100}$$
+          </div>
+          <p>f<sub>ij</sub> is the within-sector conditional frequency (per mille) for speed bin i in sector j; F<sub>j</sub> is the sector frequency (%). Values sum to 1 across all bins and sectors.</p>
+          <p>Energy proxy mode weights each petal by speed&sup3;, proportional to kinetic energy flux, and more informative than raw frequency for identifying which sectors drive wind resource.</p>
+        </section>
+
+        <section>
+          <h2>Weibull distribution</h2>
+          <p>Each sector is fitted to a two-parameter Weibull. The PDF:</p>
+          <div class="formula">
+            <span class="lbl">Weibull PDF</span>
+            $$f(x;\,A,k) = \frac{k}{A}\left(\frac{x}{A}\right)^{k-1}\exp\!\left(-\left(\frac{x}{A}\right)^{k}\right), \quad x > 0$$
+          </div>
+          <p><strong>A</strong> (scale, m/s) sets the characteristic speed; the mean is A&thinsp;&Gamma;(1&thinsp;+&thinsp;1/k). <strong>k</strong> (shape) controls the spread; k near 2 is typical for wind, higher k means more concentrated.</p>
+
+          <p>Parameters are estimated by weighted maximum likelihood. The shape k is the root of:</p>
+          <div class="formula">
+            <span class="lbl">MLE condition for k: solve g(k) = 0</span>
+            $$g(k) = \frac{1}{k} + \frac{\sum w_i \ln x_i}{\sum w_i} - \frac{\sum w_i x_i^k \ln x_i}{\sum w_i x_i^k} = 0$$
+          </div>
+
+          <p>Solved by Newton-Raphson from $k_0 = 2$:</p>
+          <div class="formula">
+            <span class="lbl">Newton-Raphson update</span>
+            $$k_{n+1} = k_n - \frac{g(k_n)}{g'(k_n)}$$
+          </div>
+          <div class="formula">
+            <span class="lbl">Derivative of g</span>
+            $$g'(k) = -\frac{1}{k^2} - \frac{\sum w_i x_i^k (\ln x_i)^2 \cdot \sum w_i x_i^k - \left(\sum w_i x_i^k \ln x_i\right)^2}{\left(\sum w_i x_i^k\right)^2}$$
+          </div>
+
+          <p>Stops when $|\Delta k| \lt 10^{-10}$ or after 200 iterations. Once k converges, A in closed form:</p>
+          <div class="formula">
+            <span class="lbl">Scale parameter A (closed form)</span>
+            $$A = \left(\frac{\sum w_i x_i^k}{\sum w_i}\right)^{1/k}$$
+          </div>
+
+          <p>Weights w<sub>i</sub> are within-sector frequencies divided by 1000. Zero-frequency bins are excluded since log(0) is undefined. Fewer than two non-zero bins returns A = k = 0 with no curve drawn.</p>
+        </section>
+
+        <section>
+          <h2>Joint probability heatmap</h2>
+          <p>The heatmap is the same p(i, j) matrix as the wind rose, with direction on the x-axis, speed on the y-axis, values in %. Clicking a column syncs the sector selection across all panels.</p>
+        </section>
+
+      </main>
+
+      <footer id="footer">
+        Need project support? Visit <a href="https://anemona.io" target="_blank" rel="noopener">anemona.io</a>
+      </footer>
+    </div>
+  </body>
+</html>
