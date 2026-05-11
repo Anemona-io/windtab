@@ -1,94 +1,47 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200" width="200" height="200">
   <defs>
     <radialGradient id="bg" cx="50%" cy="50%" r="50%">
-      <stop offset="0%" stop-color="#e0f7f7"/>
-      <stop offset="100%" stop-color="#b2ebf2"/>
+      <stop offset="0%" stop-color="#56565d"/>
+      <stop offset="100%" stop-color="#3d3d43"/>
     </radialGradient>
-    <!-- Colour stops for speed bins -->
-    <linearGradient id="c0" x1="0" y1="0" x2="1" y2="0"><stop offset="0%" stop-color="#ffffb2"/></linearGradient>
-    <linearGradient id="c1" x1="0" y1="0" x2="1" y2="0"><stop offset="0%" stop-color="#fecc5c"/></linearGradient>
-    <linearGradient id="c2" x1="0" y1="0" x2="1" y2="0"><stop offset="0%" stop-color="#fd8d3c"/></linearGradient>
-    <linearGradient id="c3" x1="0" y1="0" x2="1" y2="0"><stop offset="0%" stop-color="#f03b20"/></linearGradient>
-    <linearGradient id="c4" x1="0" y1="0" x2="1" y2="0"><stop offset="0%" stop-color="#bd0026"/></linearGradient>
   </defs>
 
-  <!-- Background circle -->
-  <circle cx="100" cy="100" r="96" fill="url(#bg)" stroke="#00838f" stroke-width="3"/>
+  <circle cx="100" cy="100" r="96" fill="url(#bg)" stroke="#6e6e76" stroke-width="2"/>
 
-  <!-- Wind rose petals (12 sectors, stacked speed bins) -->
-  <!-- Each petal is a wedge centred at (100,100); angles are math CCW from E, but we use WAsP CW-from-N convention via rotation -->
-  <!-- We draw 12 sectors at 30° each. Using a simple approach: path arcs -->
-
-  <!-- Sector helper: a stacked bar in polar. We approximate with 5 speed-bin rings. -->
-  <!-- Outer ring (ring 5, highest speed) -->
   <g transform="translate(100,100)">
-    <!-- Sector 0: N (270° in SVG math = top) -->
-    <!-- We pre-compute 12 wedges × 5 rings as simple path arcs -->
-    <!-- Ring radii (px): 18, 30, 46, 62, 75 (cumulative, proportional to example data) -->
+    <g transform="rotate(-90)">
 
-    <!-- For brevity we use a rotational group for each sector -->
-    <!-- Sector 0: 0° (N), width 30°, colours by ring -->
-    <g transform="rotate(-90)"> <!-- align north = up -->
+      <!-- Ring 1 — all 12 sectors -->
+      <path d="M0,0 L17.3,-5 A18,18,0,0,1,17.3,5 Z" fill="#f5c99b" opacity="0.85"/>
+      <path d="M0,0 L17.3,-5 A18,18,0,0,1,17.3,5 Z" fill="#f5c99b" opacity="0.85" transform="rotate(30)"/>
+      <path d="M0,0 L17.3,-5 A18,18,0,0,1,17.3,5 Z" fill="#f5c99b" opacity="0.85" transform="rotate(60)"/>
+      <path d="M0,0 L5,-17.3 A18,18,0,0,1,-5,-17.3 Z" fill="#f5c99b" opacity="0.85" transform="rotate(90)"/>
+      <path d="M0,0 L17.3,-5 A18,18,0,0,1,17.3,5 Z" fill="#f5c99b" opacity="0.85" transform="rotate(120)"/>
+      <path d="M0,0 L17.3,-5 A18,18,0,0,1,17.3,5 Z" fill="#f5c99b" opacity="0.85" transform="rotate(150)"/>
+      <path d="M0,0 L17.3,-5 A18,18,0,0,1,17.3,5 Z" fill="#f5c99b" opacity="0.85" transform="rotate(180)"/>
+      <path d="M0,0 L17.3,-5 A18,18,0,0,1,17.3,5 Z" fill="#f5c99b" opacity="0.85" transform="rotate(210)"/>
+      <path d="M0,0 L17.3,-5 A18,18,0,0,1,17.3,5 Z" fill="#f5c99b" opacity="0.85" transform="rotate(240)"/>
+      <path d="M0,0 L5,-17.3 A18,18,0,0,1,-5,-17.3 Z" fill="#f5c99b" opacity="0.85" transform="rotate(270)"/>
+      <path d="M0,0 L17.3,-5 A18,18,0,0,1,17.3,5 Z" fill="#f5c99b" opacity="0.85" transform="rotate(300)"/>
+      <path d="M0,0 L17.3,-5 A18,18,0,0,1,17.3,5 Z" fill="#f5c99b" opacity="0.85" transform="rotate(330)"/>
 
-      <!-- 12 sectors, each rotated by 30° -->
-      <!-- Sector petals: simplified as wedge paths -->
-      <!-- We use: M 0 0 L r*cos(a1) r*sin(a1) A r r 0 0 1 r*cos(a2) r*sin(a2) Z -->
-      <!-- a1=-15°, a2=+15° for each sector -->
+      <!-- Dominant SW sector — rings 2–5 -->
+      <path d="M0,0 L29,-7.8 A30,30,0,0,1,29,7.8 Z" fill="#ecad73" opacity="0.9" transform="rotate(120)"/>
+      <path d="M0,0 L44,-12 A46,46,0,0,1,44,12 Z" fill="#DD8D57" opacity="0.9" transform="rotate(120)"/>
+      <path d="M0,0 L60,-16 A62,62,0,0,1,60,16 Z" fill="#c97340" opacity="0.9" transform="rotate(120)"/>
+      <path d="M0,0 L72,-20 A75,75,0,0,1,72,20 Z" fill="#a85a2b" opacity="0.9" transform="rotate(120)"/>
 
-      <!-- Using macro-like expansion for all 12 sectors with varying radii to create a wind rose look -->
+      <!-- W sector — rings 2–4 -->
+      <path d="M0,0 L29,-7.8 A30,30,0,0,1,29,7.8 Z" fill="#ecad73" opacity="0.9" transform="rotate(150)"/>
+      <path d="M0,0 L42,-11 A43,43,0,0,1,42,11 Z" fill="#DD8D57" opacity="0.9" transform="rotate(150)"/>
+      <path d="M0,0 L55,-15 A57,57,0,0,1,55,15 Z" fill="#c97340" opacity="0.9" transform="rotate(150)"/>
 
-      <!-- Ring 1 (slowest, yellow) all sectors -->
-      <path d="M0,0 L17.3,-5 A18,18,0,0,1,17.3,5 Z" fill="#ffffb2" opacity="0.9"/>
-      <path d="M0,0 L5,-17.3 A18,18,0,0,1,-5,-17.3 Z" fill="#ffffb2" opacity="0.9" transform="rotate(90)"/>
-      <path d="M0,0 L17.3,-5 A18,18,0,0,1,17.3,5 Z" fill="#ffffb2" opacity="0.9" transform="rotate(180)"/>
-      <path d="M0,0 L5,-17.3 A18,18,0,0,1,-5,-17.3 Z" fill="#ffffb2" opacity="0.9" transform="rotate(270)"/>
-
-      <!-- Remaining 8 smaller ring-1 sectors at 30° intervals -->
-      <path d="M0,0 L17.3,-5 A18,18,0,0,1,17.3,5 Z" fill="#ffffb2" opacity="0.9" transform="rotate(30)"/>
-      <path d="M0,0 L17.3,-5 A18,18,0,0,1,17.3,5 Z" fill="#ffffb2" opacity="0.9" transform="rotate(60)"/>
-      <path d="M0,0 L17.3,-5 A18,18,0,0,1,17.3,5 Z" fill="#ffffb2" opacity="0.9" transform="rotate(120)"/>
-      <path d="M0,0 L17.3,-5 A18,18,0,0,1,17.3,5 Z" fill="#ffffb2" opacity="0.9" transform="rotate(150)"/>
-      <path d="M0,0 L17.3,-5 A18,18,0,0,1,17.3,5 Z" fill="#ffffb2" opacity="0.9" transform="rotate(210)"/>
-      <path d="M0,0 L17.3,-5 A18,18,0,0,1,17.3,5 Z" fill="#ffffb2" opacity="0.9" transform="rotate(240)"/>
-      <path d="M0,0 L17.3,-5 A18,18,0,0,1,17.3,5 Z" fill="#ffffb2" opacity="0.9" transform="rotate(300)"/>
-      <path d="M0,0 L17.3,-5 A18,18,0,0,1,17.3,5 Z" fill="#ffffb2" opacity="0.9" transform="rotate(330)"/>
-
-      <!-- Dominant sectors (SW=210°, W=270° in WAsP → vary outer radius) -->
-      <!-- Ring 2-5 for dominant SW/W sectors -->
-      <!-- SW (210° from N = 120° from E = rotate(120) above) make dominant -->
-      <path d="M0,0 L29,-7.8 A30,30,0,0,1,29,7.8 Z" fill="#fecc5c" opacity="0.9" transform="rotate(120)"/>
-      <path d="M0,0 L44,-12 A46,46,0,0,1,44,12 Z" fill="#fd8d3c" opacity="0.9" transform="rotate(120)"/>
-      <path d="M0,0 L60,-16 A62,62,0,0,1,60,16 Z" fill="#f03b20" opacity="0.9" transform="rotate(120)"/>
-      <path d="M0,0 L72,-20 A75,75,0,0,1,72,20 Z" fill="#bd0026" opacity="0.9" transform="rotate(120)"/>
-
-      <!-- W (270° from N = 180° from E = rotate(180)) -->
-      <path d="M0,0 L29,-7.8 A30,30,0,0,1,29,7.8 Z" fill="#fecc5c" opacity="0.9" transform="rotate(150)"/>
-      <path d="M0,0 L42,-11 A43,43,0,0,1,42,11 Z" fill="#fd8d3c" opacity="0.9" transform="rotate(150)"/>
-      <path d="M0,0 L55,-15 A57,57,0,0,1,55,15 Z" fill="#f03b20" opacity="0.9" transform="rotate(150)"/>
-
-      <!-- NE sector (30° from N → rotate(30)) medium -->
-      <path d="M0,0 L29,-7.8 A30,30,0,0,1,29,7.8 Z" fill="#fecc5c" opacity="0.9" transform="rotate(30)"/>
-      <path d="M0,0 L38,-10 A40,40,0,0,1,38,10 Z" fill="#fd8d3c" opacity="0.9" transform="rotate(30)"/>
+      <!-- NE sector — rings 2–3 -->
+      <path d="M0,0 L29,-7.8 A30,30,0,0,1,29,7.8 Z" fill="#ecad73" opacity="0.9" transform="rotate(30)"/>
+      <path d="M0,0 L38,-10 A40,40,0,0,1,38,10 Z" fill="#DD8D57" opacity="0.9" transform="rotate(30)"/>
 
     </g>
   </g>
 
-  <!-- Compass ring circles -->
-  <circle cx="100" cy="100" r="18" fill="none" stroke="#00838f" stroke-width="0.8" stroke-dasharray="2,3" opacity="0.5"/>
-  <circle cx="100" cy="100" r="30" fill="none" stroke="#00838f" stroke-width="0.8" stroke-dasharray="2,3" opacity="0.5"/>
-  <circle cx="100" cy="100" r="46" fill="none" stroke="#00838f" stroke-width="0.8" stroke-dasharray="2,3" opacity="0.5"/>
-  <circle cx="100" cy="100" r="62" fill="none" stroke="#00838f" stroke-width="0.8" stroke-dasharray="2,3" opacity="0.5"/>
-  <circle cx="100" cy="100" r="75" fill="none" stroke="#00838f" stroke-width="1" opacity="0.4"/>
-
-  <!-- Cardinal labels -->
-  <text x="100" y="18" text-anchor="middle" font-size="13" font-family="sans-serif" font-weight="bold" fill="#00838f">N</text>
-  <text x="183" y="105" text-anchor="middle" font-size="13" font-family="sans-serif" font-weight="bold" fill="#00838f">E</text>
-  <text x="100" y="193" text-anchor="middle" font-size="13" font-family="sans-serif" font-weight="bold" fill="#00838f">S</text>
-  <text x="17" y="105" text-anchor="middle" font-size="13" font-family="sans-serif" font-weight="bold" fill="#00838f">W</text>
-
-  <!-- Centre dot -->
-  <circle cx="100" cy="100" r="4" fill="#00838f"/>
-
-  <!-- Logo text -->
-  <text x="100" y="170" text-anchor="middle" font-size="22" font-family="monospace" font-weight="bold" fill="#006064" letter-spacing="2">windtab</text>
+  <circle cx="100" cy="100" r="4" fill="#DD8D57"/>
 </svg>
