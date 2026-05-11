@@ -1,13 +1,14 @@
 import type { AppState } from "../../state";
 import { setSelectedSector } from "../../state";
 import { renderWeibull } from "../../plots/weibull";
-import { directions, fitWeibull } from "../../stats";
+import { directions, fitWeibull, FIT_METHODS } from "../../stats";
+import type { FitMethod } from "../../stats";
+
+const enabledMethods = new Set<FitMethod>(["mle", "mom", "ls", "justus"]);
 
 export function updateSectorTile(state: AppState): void {
   if (!state.tab) return;
   const tab = state.tab;
-  // When nothing is explicitly selected, show sector 0 in this tile but
-  // don't treat it as a cross-highlighted selection.
   const s = state.selectedSector ?? 0;
 
   // Update selector options if tab changed
@@ -21,14 +22,14 @@ export function updateSectorTile(state: AppState): void {
   }
   sel.value = String(s);
 
-  // Update A/k badge
+  // Update MLE badge
   const [A, k] = fitWeibull(tab, s);
   const badge = document.getElementById("sector-weibull-badge");
-  if (badge) badge.textContent = `A=${A.toFixed(2)}  k=${k.toFixed(2)}`;
+  if (badge) badge.textContent = `MLE: A=${A.toFixed(2)}  k=${k.toFixed(2)}`;
 
-  // Render Weibull plot
+  // Render Weibull plot with all enabled methods
   const plotEl = document.getElementById("sector-plot")!;
-  renderWeibull(plotEl, tab, s);
+  renderWeibull(plotEl, tab, s, Array.from(enabledMethods));
 }
 
 export function initSectorTile(): void {
@@ -36,4 +37,24 @@ export function initSectorTile(): void {
   sel?.addEventListener("change", () => {
     setSelectedSector(Number(sel.value));
   });
+
+  document
+    .querySelectorAll<HTMLInputElement>('.fit-method-checkboxes input[type="checkbox"]')
+    .forEach((cb) => {
+      cb.addEventListener("change", () => {
+        const method = cb.dataset.method as FitMethod;
+        if (!FIT_METHODS.some((m) => m.id === method)) return;
+        if (cb.checked) {
+          enabledMethods.add(method);
+        } else {
+          enabledMethods.delete(method);
+        }
+        const state = (window as unknown as Record<string, unknown>).__state as AppState;
+        if (state?.tab) {
+          const s = state.selectedSector ?? 0;
+          const plotEl = document.getElementById("sector-plot")!;
+          renderWeibull(plotEl, state.tab, s, Array.from(enabledMethods));
+        }
+      });
+    });
 }

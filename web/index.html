@@ -75,9 +75,17 @@
         <!-- Sector detail tile -->
         <div class="tile" id="tile-sector">
           <div class="sector-header">
-            <span class="tile-label">Sector</span>
-            <select id="sector-select"></select>
-            <span id="sector-weibull-badge"></span>
+            <div class="sector-header-row">
+              <span class="tile-label">Sector</span>
+              <select id="sector-select"></select>
+              <span id="sector-weibull-badge"></span>
+            </div>
+            <div class="fit-method-checkboxes">
+              <label><input type="checkbox" data-method="mle" checked> MLE</label>
+              <label><input type="checkbox" data-method="mom" checked> Moments</label>
+              <label><input type="checkbox" data-method="ls" checked> Least Sq.</label>
+              <label><input type="checkbox" data-method="justus" checked> Justus</label>
+            </div>
           </div>
           <div id="sector-plot"></div>
         </div>
@@ -125,6 +133,8 @@
         Need project support? Visit <a href="https://anemona.io" target="_blank" rel="noopener">anemona.io</a>
       </footer>
     </div>
+
+    <a href="mailto:sebastian@anemona.io?subject=windtab%20feedback" class="feedback-btn" aria-label="Send feedback">Feedback</a>
 
     <script type="module" src="/src/main.ts"></script>
   </body>

@@ -233,8 +233,31 @@ html, body {
 /* Sector tile */
 #tile-sector .sector-header {
   display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+#tile-sector .sector-header-row {
+  display: flex;
   align-items: center;
   gap: 8px;
+}
+.fit-method-checkboxes {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+.fit-method-checkboxes label {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 0.72rem;
+  color: var(--muted);
+  cursor: pointer;
+  user-select: none;
+}
+.fit-method-checkboxes input[type="checkbox"] {
+  accent-color: var(--accent);
+  cursor: pointer;
 }
 #sector-select {
   background: var(--bg);
@@ -344,6 +367,28 @@ tbody td:first-child { text-align: left; }
   text-decoration: none;
 }
 #footer a:hover { text-decoration: underline; }
+
+/* ── feedback button ─────────────────────────────────────────────────── */
+.feedback-btn {
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  z-index: 200;
+  background: var(--accent);
+  color: #1a1a1e;
+  font-family: inherit;
+  font-size: 0.85rem;
+  font-weight: 600;
+  padding: 10px 18px;
+  border-radius: 999px;
+  text-decoration: none;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.4);
+  transition: opacity 0.15s, transform 0.15s;
+}
+.feedback-btn:hover {
+  opacity: 0.88;
+  transform: translateY(-2px);
+}
 
 /* ── mobile ─────────────────────────────────────────────────────────── */
 @media (max-width: 768px) {

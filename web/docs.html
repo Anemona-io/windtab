@@ -213,31 +213,45 @@
             <span class="lbl">Weibull PDF</span>
             $$f(x;\,A,k) = \frac{k}{A}\left(\frac{x}{A}\right)^{k-1}\exp\!\left(-\left(\frac{x}{A}\right)^{k}\right), \quad x > 0$$
           </div>
-          <p><strong>A</strong> (scale, m/s) sets the characteristic speed; the mean is A&thinsp;&Gamma;(1&thinsp;+&thinsp;1/k). <strong>k</strong> (shape) controls the spread; k near 2 is typical for wind, higher k means more concentrated.</p>
+          <p><strong>A</strong> (scale, m/s) sets the characteristic speed; the mean is $A\,\Gamma(1+1/k)$. <strong>k</strong> (shape) controls the spread; k near 2 is typical for wind, higher k means more concentrated.</p>
 
-          <p>Parameters are estimated by weighted maximum likelihood. The shape k is the root of:</p>
+          <p>Four fitting methods are available in the sector panel. Use the checkboxes to overlay and compare their curves. Weights $w_i$ are within-sector frequencies divided by 1000 in all methods; zero-weight bins are excluded.</p>
+
+          <p><strong>Method 1 — Maximum Likelihood (MLE)</strong></p>
+          <p>Maximises the weighted log-likelihood. The shape k is the root of:</p>
           <div class="formula">
-            <span class="lbl">MLE condition for k: solve g(k) = 0</span>
+            <span class="lbl">MLE condition — solve g(k) = 0</span>
             $$g(k) = \frac{1}{k} + \frac{\sum w_i \ln x_i}{\sum w_i} - \frac{\sum w_i x_i^k \ln x_i}{\sum w_i x_i^k} = 0$$
           </div>
-
-          <p>Solved by Newton-Raphson from $k_0 = 2$:</p>
+          <p>Solved by Newton-Raphson from $k_0 = 2$ (stops when $|\Delta k| &lt; 10^{-10}$ or after 200 iterations). Scale A in closed form once k converges:</p>
           <div class="formula">
-            <span class="lbl">Newton-Raphson update</span>
-            $$k_{n+1} = k_n - \frac{g(k_n)}{g'(k_n)}$$
-          </div>
-          <div class="formula">
-            <span class="lbl">Derivative of g</span>
-            $$g'(k) = -\frac{1}{k^2} - \frac{\sum w_i x_i^k (\ln x_i)^2 \cdot \sum w_i x_i^k - \left(\sum w_i x_i^k \ln x_i\right)^2}{\left(\sum w_i x_i^k\right)^2}$$
-          </div>
-
-          <p>Stops when $|\Delta k| \lt 10^{-10}$ or after 200 iterations. Once k converges, A in closed form:</p>
-          <div class="formula">
-            <span class="lbl">Scale parameter A (closed form)</span>
+            <span class="lbl">MLE — scale parameter A</span>
             $$A = \left(\frac{\sum w_i x_i^k}{\sum w_i}\right)^{1/k}$$
           </div>
 
-          <p>Weights w<sub>i</sub> are within-sector frequencies divided by 1000. Zero-frequency bins are excluded since log(0) is undefined. Fewer than two non-zero bins returns A = k = 0 with no curve drawn.</p>
+          <p><strong>Method 2 — Method of Moments</strong></p>
+          <p>Matches the first two moments of the distribution to the weighted mean $\mu$ and variance $\sigma^2$ of the data. The Weibull moments satisfy:</p>
+          <div class="formula">
+            <span class="lbl">MoM — moment ratio equation</span>
+            $$\frac{\Gamma(1+2/k)}{\Gamma(1+1/k)^2} = 1 + \left(\frac{\sigma}{\mu}\right)^2$$
+          </div>
+          <p>The left side is monotone decreasing in k, so k is found by bisection. Then $A = \mu\,/\,\Gamma(1+1/k)$. $\Gamma$ is evaluated using the Lanczos approximation.</p>
+
+          <p><strong>Method 3 — Least Squares (Weibull Probability Plot)</strong></p>
+          <p>Linearises the Weibull CDF. The empirical CDF is built from cumulative bin weights (midpoint assignment per bin). The Weibull CDF $F(x) = 1 - e^{-(x/A)^k}$ linearises as:</p>
+          <div class="formula">
+            <span class="lbl">Least Squares — linear transform</span>
+            $$Y = \ln(-\ln(1-F)),\quad X = \ln x \quad\Rightarrow\quad Y = k\,X - k\ln A$$
+          </div>
+          <p>Weighted OLS regression gives slope $k$ and intercept $b = -k\ln A$, so $A = e^{-b/k}$. Bins where $F \le 0$ or $F \ge 1$ are excluded.</p>
+
+          <p><strong>Method 4 — Justus Empirical</strong></p>
+          <p>A closed-form approximation (Justus et al. 1978) based on the coefficient of variation:</p>
+          <div class="formula">
+            <span class="lbl">Justus — shape and scale</span>
+            $$k \approx \left(\frac{\sigma}{\mu}\right)^{-1.086}, \qquad A = \frac{\mu}{\Gamma(1+1/k)}$$
+          </div>
+          <p>Fast to compute; best suited to distributions close to Weibull. May diverge from MLE when the data are skewed or multimodal.</p>
         </section>
 
         <section>
