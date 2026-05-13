@@ -43,8 +43,8 @@
         <button id="sample-btn">Try the example file</button>
       </section>
 
-      <!-- Bento grid (hidden until file loaded) -->
-      <main id="bento-grid" hidden>
+      <!-- Bento grid -->
+      <main id="bento-grid">
 
         <!-- Wind rose tile -->
         <div class="tile" id="tile-rose">
@@ -52,13 +52,36 @@
             <span id="site-name"></span>
             <label class="energy-toggle-wrap">
               <label class="toggle-switch">
-                <input type="checkbox" id="energy-toggle" />
+                <input type="checkbox" id="energy-toggle" disabled />
                 <span class="slider"></span>
               </label>
               Energy
             </label>
           </div>
-          <div id="rose-plot"></div>
+          <div id="rose-plot">
+            <svg class="rose-placeholder" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+              <circle cx="100" cy="100" r="20" fill="none" stroke="currentColor" stroke-width="1.2"/>
+              <circle cx="100" cy="100" r="40" fill="none" stroke="currentColor" stroke-width="1.2"/>
+              <circle cx="100" cy="100" r="60" fill="none" stroke="currentColor" stroke-width="1.2"/>
+              <circle cx="100" cy="100" r="80" fill="none" stroke="currentColor" stroke-width="1.2"/>
+              <path d="M 100,100 L 81.6,31.4 L 118.4,31.4 Z"/>
+              <path d="M 100,100 L 114.8,44.9 L 140.3,59.7 Z"/>
+              <path d="M 100,100 L 130.4,69.6 L 141.5,88.9 Z"/>
+              <path d="M 100,100 L 150.2,86.5 L 150.2,113.5 Z"/>
+              <path d="M 100,100 L 146.4,112.4 L 133.9,133.9 Z"/>
+              <path d="M 100,100 L 126.9,126.9 L 109.8,136.7 Z"/>
+              <path d="M 100,100 L 116.1,159.9 L 83.9,159.9 Z"/>
+              <path d="M 100,100 L 87.6,146.4 L 66.1,133.9 Z"/>
+              <path d="M 100,100 L 63.2,136.8 L 49.8,113.5 Z"/>
+              <path d="M 100,100 L 35.3,117.4 L 35.3,82.6 Z"/>
+              <path d="M 100,100 L 26.6,80.3 L 46.3,46.3 Z"/>
+              <path d="M 100,100 L 42.7,42.7 L 79,21.8 Z"/>
+              <text x="100" y="6"   text-anchor="middle" font-size="9" fill="currentColor" opacity="0.5">N</text>
+              <text x="100" y="199" text-anchor="middle" font-size="9" fill="currentColor" opacity="0.5">S</text>
+              <text x="197" y="104" text-anchor="end"    font-size="9" fill="currentColor" opacity="0.5">E</text>
+              <text x="3"   y="104" text-anchor="start"  font-size="9" fill="currentColor" opacity="0.5">W</text>
+            </svg>
+          </div>
         </div>
 
         <!-- Stat tiles -->
@@ -84,14 +107,14 @@
           <div class="sector-header">
             <div class="sector-header-row">
               <span class="tile-label">Sector</span>
-              <select id="sector-select"></select>
+              <select id="sector-select" disabled></select>
               <span id="sector-weibull-badge"></span>
             </div>
             <div class="fit-method-checkboxes">
-              <label><input type="checkbox" data-method="mle" checked> MLE</label>
-              <label><input type="checkbox" data-method="mom" checked> Moments</label>
-              <label><input type="checkbox" data-method="ls" checked> Least Sq.</label>
-              <label><input type="checkbox" data-method="justus" checked> Justus</label>
+              <label><input type="checkbox" data-method="mle" checked disabled> MLE</label>
+              <label><input type="checkbox" data-method="mom" checked disabled> Moments</label>
+              <label><input type="checkbox" data-method="ls" checked disabled> Least Sq.</label>
+              <label><input type="checkbox" data-method="justus" checked disabled> Justus</label>
             </div>
           </div>
           <div id="sector-plot"></div>

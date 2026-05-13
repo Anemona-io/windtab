@@ -20,7 +20,11 @@ export function updateSectorTile(state: AppState): void {
       .join("");
     sel.dataset.nSectors = String(tab.nSectors);
   }
+  sel.disabled = false;
   sel.value = String(s);
+  document
+    .querySelectorAll<HTMLInputElement>(".fit-method-checkboxes input[type=\"checkbox\"]")
+    .forEach((cb) => { cb.disabled = false; });
 
   // Update MLE badge
   const [A, k] = fitWeibull(tab, s);

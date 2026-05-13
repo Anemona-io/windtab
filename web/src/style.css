@@ -106,12 +106,11 @@ html, body {
 
 /* ── empty state ────────────────────────────────────────────────────── */
 #empty-state {
-  flex: 1;
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
-  gap: 16px;
+  gap: 10px;
+  padding: 20px 16px;
   color: var(--muted);
   text-align: center;
 }
@@ -228,7 +227,17 @@ html, body {
   transform: translateX(16px);
   background: var(--accent);
 }
-#rose-plot { flex: 1; min-height: 200px; }
+#rose-plot { flex: 1; min-height: 200px; position: relative; }
+.rose-placeholder {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  color: var(--text);
+  fill: var(--text);
+  opacity: 0.1;
+  pointer-events: none;
+}
 
 /* Sector tile */
 #tile-sector .sector-header {
@@ -277,6 +286,21 @@ html, body {
 
 /* Heatmap tile */
 #heatmap-plot { flex: 1; min-height: 180px; }
+
+/* Plot placeholder when Plotly hasn't rendered yet */
+#rose-plot:empty, #sector-plot:empty, #heatmap-plot:empty {
+  border: 1px dashed rgba(110, 110, 118, 0.25);
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+#rose-plot:empty::after, #sector-plot:empty::after, #heatmap-plot:empty::after {
+  content: "—";
+  color: var(--muted);
+  opacity: 0.35;
+  font-size: 1.4rem;
+}
 
 /* Table tile */
 #tile-table { overflow: hidden; }

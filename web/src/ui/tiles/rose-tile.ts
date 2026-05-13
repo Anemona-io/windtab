@@ -11,6 +11,9 @@ export function initRoseTile(): void {
 
 export function updateRoseTile(state: AppState): void {
   if (!state.tab) return;
+  const toggle = document.getElementById("energy-toggle") as HTMLInputElement;
+  if (toggle) toggle.disabled = false;
   const el = document.getElementById("rose-plot")!;
+  el.querySelector(".rose-placeholder")?.remove();
   renderRose(el, state.tab, state.energyWeighted, state.selectedSector, (i) => setSelectedSector(i));
 }
